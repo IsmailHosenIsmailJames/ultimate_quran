@@ -4,7 +4,6 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:ultimate_quran/collect_info/init.dart';
 
 import 'theme/theme_controller.dart';
-import 'theme/theme_icon_button.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,26 +41,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Al Quran"),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            DrawerHeader(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [const Spacer(), themeIconButton],
-                    )
-                  ],
-                )),
-          ],
-        ),
-      ),
-      body: const InIt(),
-    );
+    return const InIt();
   }
 }
