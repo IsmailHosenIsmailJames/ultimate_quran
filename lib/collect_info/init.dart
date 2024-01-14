@@ -9,11 +9,9 @@ class InIt extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("object");
     final box = Hive.box("info");
     final info = box.get("info", defaultValue: false);
     if (info != false) {
-      print("object2");
       if (info['transLan'] != "null" &&
           info['tafseerLan'] != "null" &&
           info['recitations'] != "null") {
