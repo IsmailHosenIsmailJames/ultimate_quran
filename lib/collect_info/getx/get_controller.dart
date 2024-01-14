@@ -10,4 +10,6 @@ class InfoController extends GetxController {
   RxString tafseerLanguage = "null".obs;
   RxInt tafseerBookIndex = (-1).obs;
   RxString tafseerBookID = "-1".obs;
+  RxInt recitationIndex = (-1).obs;
+  RxString recitationID = "-1".obs;
 }

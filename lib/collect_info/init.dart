@@ -15,23 +15,9 @@ class _InItState extends State<InIt> {
   Widget build(BuildContext context) {
     final box = Hive.box("info");
     final info = box.get("info", defaultValue: false);
-    if (info != false) {
-      if (info['transLan'] != "null" &&
-          info['tafseerLan'] != "null" &&
-          info['recitations'] != "null") {
-        return const Home();
-      } else {
-        if (info['transLan'] != "null") {
-          return const CollectInfo(pageNumber: 0);
-        }
-        if (info['tafseerLan'] != "null") {
-          return const CollectInfo(pageNumber: 2);
-        }
-        if (info['recitations'] != "null") {
-          return const CollectInfo(pageNumber: 1);
-        }
-      }
+    if (info == false) {
+      return const CollectInfo(pageNumber: 0);
     }
-    return const CollectInfo(pageNumber: 0);
+    return const Home();
   }
 }

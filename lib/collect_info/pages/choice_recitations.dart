@@ -3,42 +3,25 @@ import 'package:get/get.dart';
 import 'package:ultimate_quran/api/some_api_response.dart';
 import 'package:ultimate_quran/collect_info/getx/get_controller.dart';
 
-class ChoiceTranslationBook extends StatefulWidget {
-  const ChoiceTranslationBook({super.key});
+class RecitaionChoice extends StatefulWidget {
+  const RecitaionChoice({super.key});
 
   @override
-  State<ChoiceTranslationBook> createState() => _ChoiceTranslationStateBook();
+  State<RecitaionChoice> createState() => _RecitaionChoiceState();
 }
 
-class _ChoiceTranslationStateBook extends State<ChoiceTranslationBook> {
+class _RecitaionChoiceState extends State<RecitaionChoice> {
   final infoController = Get.put(InfoController());
-  List<List<String>> books = [];
-  void getBooksAsLanguage() {
-    for (int i = 0; i < allTranslationLanguage.length; i++) {
-      Map<String, dynamic> book = allTranslationLanguage[i];
-      if (book['language_name'] == infoController.translationLanguage.value) {
-        String autor = book['author_name'];
-        String bookName = book['name'];
-        String id = book['id'].toString();
-        books.add([autor, bookName, id]);
-      }
-    }
-  }
-
-  @override
-  void initState() {
-    getBooksAsLanguage();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Choice a  Translation Book")),
+      appBar: AppBar(
+        title: const Text("Choice Recitation"),
+      ),
       body: ListView.builder(
         padding:
             const EdgeInsets.only(bottom: 100, top: 10, left: 10, right: 10),
-        itemCount: books.length,
+        itemCount: allRecitation.length,
         itemBuilder: (context, index) {
           return ListTile(
             titleAlignment: ListTileTitleAlignment.center,
@@ -47,11 +30,11 @@ class _ChoiceTranslationStateBook extends State<ChoiceTranslationBook> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  books[index][1],
+                  allRecitation[index]["reciter_name"],
                   style: const TextStyle(fontSize: 24),
                 ),
                 Text(
-                  books[index][0],
+                  "Style: ${allRecitation[index]["style"] ?? "Unknown"}",
                   style: const TextStyle(fontSize: 14),
                 ),
               ],
@@ -59,10 +42,11 @@ class _ChoiceTranslationStateBook extends State<ChoiceTranslationBook> {
             leading: Obx(
               () => Radio(
                 value: index,
-                groupValue: infoController.bookNameIndex.value,
+                groupValue: infoController.recitationIndex.value,
                 onChanged: (value) {
-                  infoController.bookNameIndex.value = value!;
-                  infoController.bookIDTranslation.value = books[value][2];
+                  infoController.recitationIndex.value = value!;
+                  infoController.recitationID.value =
+                      allRecitation[value]["id"].toString();
                 },
               ),
             ),

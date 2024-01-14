@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ultimate_quran/api/some_api_response.dart';
-import 'package:ultimate_quran/collect_info/pages/get_controller.dart';
+import 'package:ultimate_quran/collect_info/getx/get_controller.dart';
 
 class TranslationLanguage extends StatefulWidget {
   const TranslationLanguage({super.key});
@@ -34,30 +34,28 @@ class _TranslationLanguageState extends State<TranslationLanguage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Choice a Translation Language")),
-      body: Padding(
+      body: ListView.builder(
         padding:
-            const EdgeInsets.only(bottom: 100, left: 10, right: 10, top: 10),
-        child: ListView.builder(
-          itemCount: language.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(language[index]),
-              leading: Obx(
-                () => Radio(
-                  value: index,
-                  groupValue: translationLanguageController
-                      .selectedOptionTranslation.value,
-                  onChanged: (value) {
-                    translationLanguageController
-                        .selectedOptionTranslation.value = value!;
-                    translationLanguageController.translationLanguage.value =
-                        language[value];
-                  },
-                ),
+            const EdgeInsets.only(bottom: 100, top: 10, left: 10, right: 10),
+        itemCount: language.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(language[index]),
+            leading: Obx(
+              () => Radio(
+                value: index,
+                groupValue: translationLanguageController
+                    .selectedOptionTranslation.value,
+                onChanged: (value) {
+                  translationLanguageController
+                      .selectedOptionTranslation.value = value!;
+                  translationLanguageController.translationLanguage.value =
+                      language[value];
+                },
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }

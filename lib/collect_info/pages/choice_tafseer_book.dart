@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../api/some_api_response.dart';
-import 'get_controller.dart';
+import '../getx/get_controller.dart';
 
 class ChoiceTafseerBook extends StatefulWidget {
   const ChoiceTafseerBook({super.key});
@@ -36,41 +36,39 @@ class _ChoiceTafseerBookState extends State<ChoiceTafseerBook> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Choice a  Translation Book")),
-      body: Padding(
+      body: ListView.builder(
         padding:
-            const EdgeInsets.only(bottom: 100, left: 10, right: 10, top: 10),
-        child: ListView.builder(
-          itemCount: books.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              titleAlignment: ListTileTitleAlignment.center,
-              title: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    books[index][1],
-                    style: const TextStyle(fontSize: 24),
-                  ),
-                  Text(
-                    books[index][0],
-                    style: const TextStyle(fontSize: 14),
-                  ),
-                ],
-              ),
-              leading: Obx(
-                () => Radio(
-                  value: index,
-                  groupValue: infoController.tafseerBookIndex.value,
-                  onChanged: (value) {
-                    infoController.tafseerBookIndex.value = value!;
-                    infoController.tafseerBookID.value = books[value][2];
-                  },
+            const EdgeInsets.only(bottom: 100, top: 10, left: 10, right: 10),
+        itemCount: books.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            titleAlignment: ListTileTitleAlignment.center,
+            title: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  books[index][1],
+                  style: const TextStyle(fontSize: 24),
                 ),
+                Text(
+                  books[index][0],
+                  style: const TextStyle(fontSize: 14),
+                ),
+              ],
+            ),
+            leading: Obx(
+              () => Radio(
+                value: index,
+                groupValue: infoController.tafseerBookIndex.value,
+                onChanged: (value) {
+                  infoController.tafseerBookIndex.value = value!;
+                  infoController.tafseerBookID.value = books[value][2];
+                },
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }
