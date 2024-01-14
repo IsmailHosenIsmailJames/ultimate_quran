@@ -45,10 +45,11 @@ class _TranslationLanguageState extends State<TranslationLanguage> {
               leading: Obx(
                 () => Radio(
                   value: index,
-                  groupValue:
-                      translationLanguageController.selectedOption.value,
+                  groupValue: translationLanguageController
+                      .selectedOptionTranslation.value,
                   onChanged: (value) {
-                    translationLanguageController.selectedOption.value = value!;
+                    translationLanguageController
+                        .selectedOptionTranslation.value = value!;
                     translationLanguageController.translationLanguage.value =
                         language[value];
                   },

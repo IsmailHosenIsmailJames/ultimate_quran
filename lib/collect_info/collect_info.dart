@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:ultimate_quran/collect_info/pages/choice_tranlation_book.dart';
 import 'package:ultimate_quran/collect_info/pages/recitations.dart';
 import 'package:ultimate_quran/collect_info/pages/tafseer_language.dart';
 import 'package:ultimate_quran/collect_info/pages/translation_language.dart';
+
+import 'pages/choice_tafseer_book.dart';
+import 'pages/get_controller.dart';
 
 class CollectInfo extends StatefulWidget {
   final int pageNumber;
@@ -25,7 +30,7 @@ class _CollectInfoState extends State<CollectInfo> {
   }
 
   void checkPageNumber(int index) {
-    if (index >= 2) {
+    if (index >= 4) {
       setState(() {
         nextButtonText = "Done";
       });
@@ -35,6 +40,8 @@ class _CollectInfoState extends State<CollectInfo> {
       });
     }
   }
+
+  final infoController = Get.put(InfoController());
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +53,9 @@ class _CollectInfoState extends State<CollectInfo> {
             controller: pageController,
             children: const [
               TranslationLanguage(),
+              ChoiceTranslationBook(),
               TafseerLanguage(),
+              ChoiceTafseerBook(),
               RecitaionChoice(),
             ],
           ),
@@ -57,14 +66,15 @@ class _CollectInfoState extends State<CollectInfo> {
               children: [
                 TextButton(
                   onPressed: () {
-                    pageController.jumpToPage(2);
-                    checkPageNumber(2);
+                    pageController.previousPage(
+                        duration: const Duration(milliseconds: 200),
+                        curve: Curves.bounceIn);
                   },
-                  child: const Text("Skip"),
+                  child: const Text("previous"),
                 ),
                 SmoothPageIndicator(
                   controller: pageController,
-                  count: 3,
+                  count: 5,
                   onDotClicked: (index) {
                     pageController.jumpToPage(
                       index,
@@ -74,6 +84,25 @@ class _CollectInfoState extends State<CollectInfo> {
                 ),
                 TextButton(
                   onPressed: () async {
+                    if (pageController.page! == 0) {
+                      if (infoController.selectedOptionTranslation.value ==
+                          -1) {
+                        return;
+                      }
+                    } else if (pageController.page! == 1) {
+                      if (infoController.bookNameIndex.value == -1) {
+                        return;
+                      }
+                    }
+                    if (pageController.page! == 2) {
+                      if (infoController.tafseerIndex.value == -1) {
+                        return;
+                      }
+                    } else if (pageController.page! == 3) {
+                      if (infoController.tafseerBookIndex.value == -1) {
+                        return;
+                      }
+                    }
                     pageController.nextPage(
                         duration: const Duration(milliseconds: 200),
                         curve: Curves.bounceIn);
