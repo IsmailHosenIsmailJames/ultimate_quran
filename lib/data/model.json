@@ -1,0 +1,12 @@
+{
+    "quran":{},
+    "translation":{},
+    "tafseer":{},
+    "recitation":{},
+    "status":{
+        "quran":true,
+        "translation":false,
+        "tafseer":true,
+        "recitation":false
+    }
+}
